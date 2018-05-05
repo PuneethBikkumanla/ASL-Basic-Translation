@@ -1,3 +1,3 @@
 # ASL-Basic-Translation
 
-https://github.com/PuneethBikkumanla/ASL-Basic-Translation.git
+https://www.kaggle.com/grassknoted/asl-alphabet
