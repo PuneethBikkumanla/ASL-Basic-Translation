@@ -1,18 +1,27 @@
 import cv2
 import os
 import numpy as np
+import numpy as np
+from keras.models import load_model
+from sklearn.preprocessing import StandardScaler
 
-
+model = load_model('ASL_Model.h5')
+scaler = StandardScaler()
 def process(img):
     img = preprocess(img)
-    print(img)
+    img = np.reshape(img, (1, 784))
+    data = scaler.fit_transform(img)
+    data = np.resize(data, (1, 28, 28, 1))
+
+    prediction = model.predict(data)
+    print("Predicted: " + str(prediction))
 
 def preprocess(frame):
     img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     data_arr = np.asarray( img_gray )
-    cropped_data = data_arr[100:300, 50:250]
-
-    rsimage = cv2.resize(cropped_data, (28,28) ,interpolation = cv2.INTER_AREA)
+    cropped_data = data_arr#[100:300, 50:250]
+    cv2.imshow('test', cropped_data)
+    rsimage = cv2.resize(cropped_data, (28,28))
     cv2.imshow('blah', rsimage)
     return rsimage
 
